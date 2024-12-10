@@ -1,16 +1,7 @@
-# flutter_project
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Frontend(Flutter, Dart, HTML):
+Design of webpage:
+Title bar should be name SkillsSG, with Explore button(links to all the possible skills and courses available),
+Contact Us for customer support, About Us for customers to understand us more, Search bar,
+and a Login/Sign Up button, User Avatar Image(Profile Pic user uploaded)
+- Sidebar of Menu, for easy link to homepage, Skill List page, Teacher List page, Profile Settings,
+logout button etc
