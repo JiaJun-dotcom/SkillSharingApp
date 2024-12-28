@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                   elevation: 0, // Optional: Make it flat like an icon button
                 ),
                 child: const Text(
-                  "Login",
+                  "Login/Register",
                   style: TextStyle(color: Colors.white), // Customize text color
                 ),
               ),
@@ -91,13 +91,13 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
                 },
               ),
-        /*      ListTile(
+             ListTile(
                 leading: Icon(Icons.settings),
                 title: Text('Settings'),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsPage()));
                 },
-              ), */
+              ),
            ListTile(
              leading: const Icon(Icons.person), title: const Text('Profile'),
              onTap: () {

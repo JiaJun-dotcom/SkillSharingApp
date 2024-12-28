@@ -66,6 +66,73 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
+class SettingsPage extends StatefulWidget {
+  @override
+  _SettingsPageState createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  bool _emailNotifications = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Settings',
+        style: TextStyle(
+            color: Colors.orange,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        )
+      ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+      ),
+    body: ListView(
+      children: [
+        ListTile(
+          title: Text('Profile Settings'),
+          trailing: Icon(Icons.chevron_right),
+          onTap: () {
+            Navigator.pushNamed(context, '/profileSettings');
+          },
+        ),
+        SwitchListTile(
+          title: Text('Email Notifications'),
+          value: _emailNotifications,
+          onChanged: (bool value) {
+            _emailNotifications = value;
+            // Call API to update setting
+          },
+          secondary: Icon(Icons.email),
+        ),
+        SwitchListTile(
+          title: Text('Push Notifications'),
+          value: false,
+          onChanged: (bool value) {
+            // Call API to update setting
+          },
+        ),
+        ListTile(
+          title: Text('Privacy Settings'),
+          trailing: Icon(Icons.chevron_right),
+          onTap: () {
+            Navigator.pushNamed(context, '/privacySettings');
+          },
+        ),
+        ListTile(
+          title: Text('Help and Support'),
+          trailing: Icon(Icons.chevron_right),
+          onTap: () {
+            Navigator.pushNamed(context, '/helpSupport');
+          },
+        ),
+      ],
+    ),
+    );
+  }
+}
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -151,7 +218,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-class SkillDetailsPage extends StatelessWidget {
+/*class SkillDetailsPage extends StatelessWidget {
   final Map<String, dynamic> skill;
 
   const SkillDetailsPage({Key? key, required this.skill}) : super(key: key);
@@ -212,3 +279,4 @@ class SkillDetailsPage extends StatelessWidget {
     );
   }
 }
+ */

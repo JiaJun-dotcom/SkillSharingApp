@@ -1,12 +1,11 @@
 // file for defining functions that link pages together for app functionality
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String baseUrl = "http://127.0.0.1:8000/"; //from your django backend api calls
+const String baseUrl = "http://127.0.0.1:8000"; //from your django backend api calls
 
 Future<void> saveUserToken(token) async {
   final prefs = await SharedPreferences.getInstance();
@@ -60,16 +59,20 @@ void onQueryChanged(String query) {
 
 Future<void> loginUser(String username, String password) async {
   final response = await http.post(
-    Uri.parse('$baseUrl/login'), // Replace with your backend login URL
-    body: {
+    Uri.parse('$baseUrl/api/auth/login/'),
+    headers: <String, String>{
+      'Content-Type': 'application/json',
+    },
+    body: jsonEncode(<String, String>{
       'username': username,
       'password': password,
-    },
+    }),
   );
 
   if (response.statusCode == 200) {
     // Assuming the response contains a token
-    final token = json.decode(response.body)['token'];
+    var data = jsonDecode(response.body);
+    String token = data['key'];
     saveUserToken(token); // Save the token locally
   } else {
     throw Exception('Failed to log in');
