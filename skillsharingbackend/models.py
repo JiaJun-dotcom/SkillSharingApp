@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Skills(models.Model):
     id = models.IntegerField(primary_key=True) #primary_key must always be set to True so that each
@@ -15,15 +16,14 @@ class Skills(models.Model):
     #and ALL the teachers in the whole database.
     def __str__(self):
         return self.name
+
 class Profile(models.Model):
-    id = models.IntegerField()
-    name = models.CharField(max_length=200)
-    username = models.CharField(max_length=50, primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile', null=True, blank=True)
+    name = models.CharField(max_length=255, default='')
     profile_picture = models.ImageField()
     bio = models.TextField()
-    email = models.EmailField()
     hpnumber = models.IntegerField()
-    skills = models.ManyToManyField(Skills, related_name='profiles')
+    skills = models.ManyToManyField(Skills, blank=True, related_name='profiles')
 
     def __str__(self):
         return self.name
