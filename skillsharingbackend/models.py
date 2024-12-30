@@ -6,7 +6,7 @@ class Skills(models.Model):
     #object can be uniquely identified by their id when connecting to API in each API endpoint.
     name = models.CharField(max_length=200)
     description = models.TextField()
-    # the related_name is used to define and use the related_name skills in this case, so that
+    #the related_name is used to define and use the related_name skills in this case, so that
     #in the teachers class, if we want to access skills taught by a teacher, we can use:
     #teachers.skills.all and we dont need define another manytomanyfield in teachers class, which can
     #give us an error, and to access all teachers for a skill, use skills.teachers.all()
