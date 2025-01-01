@@ -32,30 +32,25 @@ Future<Profile> fetchProfile(String token) async {
   }
 }
 
-Future<List> fetchSkill(String token, String query) async {
+Future<List?> fetchSkill(String token, String query) async {
+  String? token = await getUserToken();
+  if (token == null) {
+    throw Exception(
+        'User token not found, please login first to retrieve data.');
+  }
+
   final response = await http.get(
     Uri.parse('$baseUrl/skills/?query=$query'),
     headers: {'Authorization': 'Bearer $token'},
   );
   if (response.statusCode == 200) {
     var data = json.decode(response.body);
-    List skillsList = data['skills']; // Adjust this according to your API response structure
-    return skillsList.map((skill) => Skills.fromJson(skill)).toList();
+    List<Skills> skillslist = data.map((skill) => Skills.fromJson(skill)).toList();
+    return skillslist;
   } else {
     throw Exception('Failed to retrieve Skills details');
   }
 }
-
-void onQueryChanged(String query) {
-  // Call the async function with a default value for the second parameter
-  fetchSkill(query, 'defaultParam').then((skills) {
-    // Handle the fetched skills here
-    print('Fetched skills: $skills');
-  }).catchError((error) {
-    print('Error fetching skills: $error');
-  });
-}
-
 
 Future<void> loginUser(String username, String password) async {
   final response = await http.post(

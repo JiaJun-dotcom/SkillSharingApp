@@ -134,7 +134,9 @@ class _SettingsPageState extends State<SettingsPage> {
 }
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  final User profile;
+
+  const ProfilePage({Key? key, required this.profile}) : super(key: key);
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -218,11 +220,11 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-/*class SkillDetailsPage extends StatelessWidget {
+class SkillDetailsPage extends StatelessWidget {
   final Map<String, dynamic> skill;
 
   const SkillDetailsPage({Key? key, required this.skill}) : super(key: key);
-
+// tells us that for different skills, they will still follow same skill page, just the skill is diff(description, teachers, title etc)
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> profiles = skill['teachers'] ?? [];
@@ -261,9 +263,9 @@ class _ProfilePageState extends State<ProfilePage> {
                         onPressed: () {
                           // Navigate to Profile Details Page
                           Navigator.push(context, MaterialPageRoute(
-                              builder: (context) =>
+                              builder: (context) => ProfilePage()
                             //make link to each profile's details etc
-                          ),
+                          )
                           );
                         },
                         child: const Text('More Details'),
@@ -279,4 +281,4 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
- */
+
