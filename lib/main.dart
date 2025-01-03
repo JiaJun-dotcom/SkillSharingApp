@@ -1,11 +1,9 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'model.dart';
 import 'pages.dart';
 import 'utils.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); //ensure flutter engine properly initialized for use within flutter app
-  await Firebase.initializeApp(); //initialize firebase features for use within flutter app
   runApp(const MyApp());
 }
 
@@ -22,7 +20,7 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -31,6 +29,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController _controller = TextEditingController();
   List<dynamic> _skillslist = [];
+
   @override
   void initState() {
     super.initState();
@@ -122,9 +121,8 @@ class _HomePageState extends State<HomePage> {
                   title: const Text('Home'),
                   leading: const Icon(Icons.home),
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => const HomePage()));
-                  },
+                    Navigator.pop(context);
+                  }
                 ),
                 ListTile(
                   leading: Icon(Icons.settings),
@@ -137,10 +135,28 @@ class _HomePageState extends State<HomePage> {
                 ListTile(
                     leading: const Icon(Icons.person),
                     title: const Text('Profile'),
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(
-                          builder: (context) => const ProfilePage()));
-                    }
+                    onTap: () async {
+                      final token = getUserToken();
+                      if (token != null) {
+                        try {
+                          final profile = await fetchProfile(token as String); // Fetch profile using token
+                          Navigator.push(
+                            context, MaterialPageRoute(
+                              builder: (context) => ProfilePage(profile: profile),
+                            ),
+                          );
+                        } catch (e) {
+                          print('Failed to fetch profile: $e');
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Error loading profile')),
+                          );
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('User token not found')),
+                        );
+                      }
+                    },
                 ),
               ],
             )
